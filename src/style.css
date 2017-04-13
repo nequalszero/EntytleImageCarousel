@@ -51,7 +51,7 @@
   top: 50%;
 }
 
-.change-image, .add-image {
+.change-image, .add-image, .image-name {
   padding: 7px 0px;
   height: 40px;
   text-align: center;
@@ -80,12 +80,23 @@
   opacity: 0.8
 }
 
-.add-image-container {
+.add-image-container, .image-name-container {
   position: absolute;
   display: flex;
   justify-content: center;
-  bottom: -60px;
   width: 100%;
+}
+
+.add-image-container {
+  bottom: -100px;
+}
+
+.image-name-container {
+  bottom: -35px;
+}
+
+.image-name {
+  width: 80%;
 }
 
 .add-image {
@@ -101,7 +112,6 @@
 .new-image-modal h2 {
   font-size: 30px;
   font-weight: bold;
-  text-align: center;
   padding-bottom: 20px;
 }
 

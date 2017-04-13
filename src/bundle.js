@@ -10573,11 +10573,9 @@ var App = function (_React$Component) {
     }, _this.closeModal = function () {
       _this.setState({ modalIsOpen: false });
     }, _this.nextImageDisabled = function () {
-      if (_this.state.viewingIdx === _this.state.images.length - 1) return true;
-      return false;
+      return _this.state.viewingIdx === _this.state.images.length - 1;
     }, _this.previousImageDisabled = function () {
-      if (_this.state.viewingIdx === 0) return true;
-      return false;
+      return _this.state.viewingIdx === 0;
     }, _this.nextImage = function () {
       if (!_this.nextImageDisabled()) {
         _this.setState({ viewingIdx: _this.state.viewingIdx + 1 });
@@ -10588,6 +10586,21 @@ var App = function (_React$Component) {
       }
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
+
+  // Adds a new image to the state and closes the modal.
+
+
+  // Checks whether the current image being displayed is the last image.
+
+
+  // Checks whether the current image being displayed is the first image.
+
+
+  // Moves to the previous image provided not already on the first one.
+
+
+  // Moves to the next image provided not already on the last one.
+
 
   _createClass(App, [{
     key: 'render',
@@ -10690,7 +10703,10 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Component that represents the image being displayed, the image name, and the previous,
+//   next, and add image buttons.
 var ImageViewArea = function ImageViewArea(props) {
+  // Returns the correct CSS classes for the previous and next buttons.
   var buttonClass = function buttonClass(type) {
     var next = type === "next" ? true : false;
     var disabled = type === "next" ? props.nextImageDisabled : props.previousImageDisabled;
@@ -10719,6 +10735,15 @@ var ImageViewArea = function ImageViewArea(props) {
         'button',
         { className: buttonClass('previous'), onClick: props.previousImage },
         'Previous'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'image-name-container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'image-name' },
+          props.image.name
+        )
       ),
       _react2.default.createElement(
         'div',
@@ -10791,6 +10816,8 @@ var customStyle = {
   }
 };
 
+// Modal with a form to add new images.
+
 var NewImageModal = function (_React$Component) {
   _inherits(NewImageModal, _React$Component);
 
@@ -10817,9 +10844,26 @@ var NewImageModal = function (_React$Component) {
       if (_this.validInputs()) {
         var newImage = { path: _this.state.path, name: _this.state.name };
         _this.props.onSubmit(newImage);
+        _this.setState({ path: "", name: "" });
       }
+    }, _this.closeForm = function () {
+      _this.props.onRequestClose();
+      _this.setState({ path: "", name: "" });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
+
+  // Updates the appropriate key in the state upon changes in the input boxes.
+
+
+  // Checks whether either of the input boxes are empty.
+
+
+  // Checks that neither input box is empty, and then dispatches an action to update
+  //   the parent App's state and reset the modal's state.
+
+
+  // Clears the modal's state before dispatching an action to close the modal.
+
 
   _createClass(NewImageModal, [{
     key: 'render',
@@ -10829,7 +10873,7 @@ var NewImageModal = function (_React$Component) {
       return _react2.default.createElement(
         _reactModal2.default,
         { isOpen: this.props.modalIsOpen,
-          onRequestClose: this.props.onRequestClose,
+          onRequestClose: this.closeForm,
           contentLabel: 'Modal',
           style: customStyle },
         _react2.default.createElement(
@@ -10848,7 +10892,7 @@ var NewImageModal = function (_React$Component) {
             _react2.default.createElement(
               'label',
               null,
-              'Source'
+              'Path'
             ),
             _react2.default.createElement('br', null),
             _react2.default.createElement('input', { type: 'text',
@@ -10939,7 +10983,7 @@ exports = module.exports = __webpack_require__(55)();
 
 
 // module
-exports.push([module.i, ".app {\n  border: 5px solid blue;\n  height: 100%;\n  width: 100%;\n  box-sizing: border-box;\n  padding: 10px;\n  font: 16px sans-serif;\n}\n\n.image-view-area-container {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n  max-height: 50%;\n  max-width: 50%;\n  height: 100%;\n  width: 50%;\n}\n\n.image-view-area {\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n\n.image-display {\n  position: absolute;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  width: 100%;\n}\n\n.image-display img {\n  align-content: center;\n  max-height: 100%;\n  max-width: 100%;\n  width: auto;\n  height: auto;\n  /*height: 100%;*/\n  border: 5px solid black;\n  border-radius: 5%;\n}\n\n.change-image {\n  position: absolute;\n  background-color: #00cc00;\n  width: 90px;\n  top: 50%;\n}\n\n.change-image, .add-image {\n  padding: 7px 0px;\n  height: 40px;\n  text-align: center;\n  border: 3px solid black;\n  border-radius: 5px;\n  font-weight: bold;\n}\n\n.change-image:hover {\n  cursor: pointer;\n}\n\n.change-image.next {\n  right: -100px;\n}\n\n.change-image.previous {\n  left: -100px;\n}\n\n.change-image.disabled {\n  background-color: #80ff80;\n}\n\n.change-image.enabled:hover, .add-image:hover {\n  opacity: 0.8\n}\n\n.add-image-container {\n  position: absolute;\n  display: flex;\n  justify-content: center;\n  bottom: -60px;\n  width: 100%;\n}\n\n.add-image {\n  position: static;\n  width: 120px;\n  background-color: #0099ff;\n}\n\n.new-image-modal form {\n  margin: 20px 15px;\n}\n\n.new-image-modal h2 {\n  font-size: 30px;\n  font-weight: bold;\n  text-align: center;\n  padding-bottom: 20px;\n}\n\n.new-image-modal label {\n  margin-left: 2px;\n  font-weight: bold;\n}\n\n.new-image-modal input {\n  border: 1px solid black;\n  border-radius: 7px;\n  padding: 7px;\n  width: 100%;\n  margin-top: 10px;\n  margin-bottom: 20px;\n  box-sizing: border-box;\n}\n\n.new-image-modal .button-container {\n  display: flex;\n  justify-content: center;\n}\n\n.new-image-modal button {\n  border: 3px solid black;\n  padding: 7px 15px;\n  text-align: center;\n  font-weight: bold;\n  background-color: #0099ff;\n}\n", ""]);
+exports.push([module.i, ".app {\n  border: 5px solid blue;\n  height: 100%;\n  width: 100%;\n  box-sizing: border-box;\n  padding: 10px;\n  font: 16px sans-serif;\n}\n\n.image-view-area-container {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n  max-height: 50%;\n  max-width: 50%;\n  height: 100%;\n  width: 50%;\n}\n\n.image-view-area {\n  position: relative;\n  height: 100%;\n  width: 100%;\n}\n\n.image-display {\n  position: absolute;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100%;\n  width: 100%;\n}\n\n.image-display img {\n  align-content: center;\n  max-height: 100%;\n  max-width: 100%;\n  width: auto;\n  height: auto;\n  /*height: 100%;*/\n  border: 5px solid black;\n  border-radius: 5%;\n}\n\n.change-image {\n  position: absolute;\n  background-color: #00cc00;\n  width: 90px;\n  top: 50%;\n}\n\n.change-image, .add-image, .image-name {\n  padding: 7px 0px;\n  height: 40px;\n  text-align: center;\n  border: 3px solid black;\n  border-radius: 5px;\n  font-weight: bold;\n}\n\n.change-image:hover {\n  cursor: pointer;\n}\n\n.change-image.next {\n  right: -100px;\n}\n\n.change-image.previous {\n  left: -100px;\n}\n\n.change-image.disabled {\n  background-color: #80ff80;\n}\n\n.change-image.enabled:hover, .add-image:hover {\n  opacity: 0.8\n}\n\n.add-image-container, .image-name-container {\n  position: absolute;\n  display: flex;\n  justify-content: center;\n  width: 100%;\n}\n\n.add-image-container {\n  bottom: -100px;\n}\n\n.image-name-container {\n  bottom: -35px;\n}\n\n.image-name {\n  width: 80%;\n}\n\n.add-image {\n  position: static;\n  width: 120px;\n  background-color: #0099ff;\n}\n\n.new-image-modal form {\n  margin: 20px 15px;\n}\n\n.new-image-modal h2 {\n  font-size: 30px;\n  font-weight: bold;\n  padding-bottom: 20px;\n}\n\n.new-image-modal label {\n  margin-left: 2px;\n  font-weight: bold;\n}\n\n.new-image-modal input {\n  border: 1px solid black;\n  border-radius: 7px;\n  padding: 7px;\n  width: 100%;\n  margin-top: 10px;\n  margin-bottom: 20px;\n  box-sizing: border-box;\n}\n\n.new-image-modal .button-container {\n  display: flex;\n  justify-content: center;\n}\n\n.new-image-modal button {\n  border: 3px solid black;\n  padding: 7px 15px;\n  text-align: center;\n  font-weight: bold;\n  background-color: #0099ff;\n}\n", ""]);
 
 // exports
 

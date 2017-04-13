@@ -1,11 +1,11 @@
-## Intuit Challenge - ReactJS Subreddits
+## Entytle Challenge - Image Carousel
 
 [Live Link][livelink]
 
 [livelink]: https://nequalszero.github.io/EntytleImageCarousel/
 
 ### Summary
-This front end web application is built with `React`, with the JavaScript files bundled together via `webpack` into the `src/bundle.js` file.  
+This front end web application is built with `React`, with the JavaScript files bundled together via `webpack` into the `src/bundle.js` file.  The application has 3 default images that can be cycled through.  Images can be added to the application state via the modal form, but do not persist between refreshes as they are not saved.
 
 ### Download Instructions
 1. Clone the repository to your local machine.

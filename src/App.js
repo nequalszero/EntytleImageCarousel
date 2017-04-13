@@ -11,6 +11,7 @@ class App extends React.Component {
     modalIsOpen: false
   };
 
+  // Adds a new image to the state and closes the modal.
   addNewImage = (imageData) => {
     const newImages = this.state.images;
     newImages.push(imageData);
@@ -25,22 +26,24 @@ class App extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
+  // Checks whether the current image being displayed is the last image.
   nextImageDisabled = () => {
-    if (this.state.viewingIdx === this.state.images.length - 1) return true;
-    return false;
+    return (this.state.viewingIdx === this.state.images.length - 1);
   }
 
+  // Checks whether the current image being displayed is the first image.
   previousImageDisabled = () => {
-    if (this.state.viewingIdx === 0) return true;
-    return false;
+    return (this.state.viewingIdx === 0);
   }
 
+  // Moves to the previous image provided not already on the first one.
   nextImage = () => {
     if (!this.nextImageDisabled()) {
       this.setState({viewingIdx: this.state.viewingIdx + 1})
     }
   }
 
+  // Moves to the next image provided not already on the last one.
   previousImage = () => {
     if (!this.previousImageDisabled()) {
       this.setState({viewingIdx: this.state.viewingIdx - 1})

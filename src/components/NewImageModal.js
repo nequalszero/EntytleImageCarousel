@@ -18,39 +18,51 @@ const customStyle = {
   }
 };
 
+// Modal with a form to add new images.
 class NewImageModal extends React.Component {
   state = {
     path: "",
     name: ""
   }
 
+  // Updates the appropriate key in the state upon changes in the input boxes.
   handleChange = (field, value) => {
     this.setState({[`${field}`]: value})
   }
 
+  // Checks whether either of the input boxes are empty.
   validInputs = () => {
     return (this.state.path.length > 0 && this.state.name.length > 0)
   }
 
+  // Checks that neither input box is empty, and then dispatches an action to update
+  //   the parent App's state and reset the modal's state.
   submitForm = (e) => {
     e.preventDefault();
     if (this.validInputs()) {
       const newImage = { path: this.state.path, name: this.state.name };
       this.props.onSubmit(newImage);
+      this.setState({path: "", name: ""});
     }
+  }
+
+  // Clears the modal's state before dispatching an action to close the modal.
+  closeForm = () => {
+    this.props.onRequestClose();
+    this.setState({path: "", name: ""});
   }
 
   render() {
     return (
       <Modal isOpen={ this.props.modalIsOpen }
-        onRequestClose={ this.props.onRequestClose }
+        onRequestClose={ this.closeForm }
         contentLabel="Modal"
         style={customStyle}>
         <div className="new-image-modal">
           <form onSubmit={(e) => this.submitForm(e)}>
             <h2 className="title">Add New Image</h2>
 
-            <label>Source</label>
+            <label>Path</label>
             <br/>
             <input type="text"
               onChange={(e) => this.handleChange('path', e.target.value)}
