@@ -10565,8 +10565,8 @@ var App = function (_React$Component) {
       viewingIdx: 0,
       modalIsOpen: false
     }, _this.addNewImage = function (imageData) {
-      var newImages = _this.state.startingImages;
-      newImages.images.push(imageData);
+      var newImages = _this.state.images;
+      newImages.push(imageData);
       _this.setState({ images: newImages, modalIsOpen: false });
     }, _this.openNewImageModal = function () {
       _this.setState({ modalIsOpen: true });
@@ -10592,6 +10592,8 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'App' },
@@ -10603,7 +10605,9 @@ var App = function (_React$Component) {
           openNewImageModal: this.openNewImageModal }),
         _react2.default.createElement(_NewImageModal2.default, { modalIsOpen: this.state.modalIsOpen,
           onRequestClose: this.closeModal,
-          onSubmit: this.addNewImage })
+          onSubmit: function onSubmit(newImage) {
+            return _this2.addNewImage(newImage);
+          } })
       );
     }
   }]);
@@ -10802,17 +10806,17 @@ var NewImageModal = function (_React$Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = NewImageModal.__proto__ || Object.getPrototypeOf(NewImageModal)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-      source: "",
+      path: "",
       name: ""
     }, _this.handleChange = function (field, value) {
       _this.setState(_defineProperty({}, '' + field, value));
     }, _this.validInputs = function () {
-      return _this.state.source.length > 0 && _this.state.name.length > 0;
-    }, _this.submitForm = function () {
+      return _this.state.path.length > 0 && _this.state.name.length > 0;
+    }, _this.submitForm = function (e) {
       e.preventDefault();
       if (_this.validInputs()) {
-        var newImage = { source: _this.state.source, name: _this.state.name };
-        _this.props.submitForm(newImage);
+        var newImage = { path: _this.state.path, name: _this.state.name };
+        _this.props.onSubmit(newImage);
       }
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -10849,9 +10853,9 @@ var NewImageModal = function (_React$Component) {
             _react2.default.createElement('br', null),
             _react2.default.createElement('input', { type: 'text',
               onChange: function onChange(e) {
-                return _this2.handleChange('source', e.target.value);
+                return _this2.handleChange('path', e.target.value);
               },
-              value: this.state.source }),
+              value: this.state.path }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
