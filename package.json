@@ -1,5 +1,5 @@
 {
-  "name": "ReactJS_Subreddits",
+  "name": "Image_Carousel",
   "version": "1.0.0",
   "description": "",
   "main": "src/entry.js",
@@ -19,6 +19,7 @@
     "classnames": "^2.2.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-modal": "^1.7.3",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
   },

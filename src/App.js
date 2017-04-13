@@ -1,18 +1,28 @@
 import React from 'react';
 import ImageViewArea from './components/ImageViewArea';
-import startingImages from './default_images';
+import NewImageModal from './components/NewImageModal';
+import startingImages from './misc/default_images';
 
 // Top level application component.
 class App extends React.Component {
   state = {
     images: startingImages.Images,
-    viewingIdx: 0
+    viewingIdx: 0,
+    modalIsOpen: false
   };
 
   addNewImage = (imageData) => {
-    const newImages = this.state.startingImages;
-    newImages.images.push(imageData);
-    this.setState({images: newImages})
+    const newImages = this.state.images;
+    newImages.push(imageData);
+    this.setState({images: newImages, modalIsOpen: false})
+  }
+
+  openNewImageModal = () => {
+    this.setState({modalIsOpen: true})
+  }
+
+  closeModal = () => {
+    this.setState({modalIsOpen: false});
   }
 
   nextImageDisabled = () => {
@@ -44,7 +54,11 @@ class App extends React.Component {
           nextImageDisabled={this.nextImageDisabled()}
           previousImageDisabled={this.previousImageDisabled()}
           nextImage={this.nextImage}
-          previousImage={this.previousImage}/>
+          previousImage={this.previousImage}
+          openNewImageModal={this.openNewImageModal}/>
+        <NewImageModal modalIsOpen={ this.state.modalIsOpen }
+          onRequestClose={ this.closeModal }
+          onSubmit={ (newImage) => this.addNewImage(newImage) }/>
       </div>
     );
   }

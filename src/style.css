@@ -4,4 +4,131 @@
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
+  font: 16px sans-serif;
+}
+
+.image-view-area-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 50%;
+  max-width: 50%;
+  height: 100%;
+  width: 50%;
+}
+
+.image-view-area {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.image-display {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.image-display img {
+  align-content: center;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  /*height: 100%;*/
+  border: 5px solid black;
+  border-radius: 5%;
+}
+
+.change-image {
+  position: absolute;
+  background-color: #00cc00;
+  width: 90px;
+  top: 50%;
+}
+
+.change-image, .add-image {
+  padding: 7px 0px;
+  height: 40px;
+  text-align: center;
+  border: 3px solid black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.change-image:hover {
+  cursor: pointer;
+}
+
+.change-image.next {
+  right: -100px;
+}
+
+.change-image.previous {
+  left: -100px;
+}
+
+.change-image.disabled {
+  background-color: #80ff80;
+}
+
+.change-image.enabled:hover, .add-image:hover {
+  opacity: 0.8
+}
+
+.add-image-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  bottom: -60px;
+  width: 100%;
+}
+
+.add-image {
+  position: static;
+  width: 120px;
+  background-color: #0099ff;
+}
+
+.new-image-modal form {
+  margin: 20px 15px;
+}
+
+.new-image-modal h2 {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.new-image-modal label {
+  margin-left: 2px;
+  font-weight: bold;
+}
+
+.new-image-modal input {
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 7px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.new-image-modal .button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.new-image-modal button {
+  border: 3px solid black;
+  padding: 7px 15px;
+  text-align: center;
+  font-weight: bold;
+  background-color: #0099ff;
 }
